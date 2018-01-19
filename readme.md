@@ -146,9 +146,3 @@ For testing application the database is seeded with sample users:
 - Replace Vue Resource with Axios
 - Add more E2E tests
 
-
-### License ###
-
-And of course:
-
-[MIT](LICENSE.md)
