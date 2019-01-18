@@ -1,54 +1,138 @@
-# Project Setup Guide #
-## 1. Install PHP 5.6.3 ##
-```
-sudo add-apt-repository ppa:ondrej/php
-sudo apt-get install software-properties-common
-sudo apt-get update
-sudo apt-get install php5.6
-sudo apt-get install php5.6-mbstring php5.6-mcrypt php5.6-mysql php5.6-xml
-```
-## 2. Install Nginx or Apache on the local machine ##
-### 2.1 Nginx Install ###
-```
-sudo apt-get update
-sudo apt-get install nginx
-You can check nginx status by the following command
-sudo service nginx status
-```
-### 2.2 Apache Install ###
-```
-sudo apt-get update
-sudo apt-get install apache2
-```
-## 3. Install MySQL on the local machine. ##
-```
-sudo apt-get update
-sudo apt-get install mysql-server
-```
-## 4. Clone the repo on the machine ##
-```
-Please create a new folder with naming Cydec
-Pleae move into this folder and clone the repo
-git clone https://github.com/Cydec/cydec.git
-```
-## 5. Nginx or Apache Configuration ##
-```
-Please open the configuration file.
-The location of conf file is depend on your OS.
-sudo nano /etc/nginx/sites-enabled/cydec.com
+## Laravel 5.5 & Vue.js 2.4 + Vuex Sample Project ##
 
-And then please point the root to Cydec directory. (Directory should be absolute path)
-```
-## 6. Database Migration ##
-```
-Please create a new user for accessing MySQL database.
-Username should be 'cydec', and password should be 'cydec_admin'
+**Laravel & Vue Sample Project** is a tutorial Single Page Application (SPA) for Laravel 5.5 and Vue.js 2.4 Frontend
 
-Please open browser with the following link.
-https://localhost/cydec/install.php
+### Installation ###
 
-And then, insert the appropriate information in the form.
-Click submit button after completing.
+```
+composer install # Install php dependencies
+
+# Prepare enviroment variables
+cp .env.example .env # Copy configuration file
+php artisan key:generate # Generate unique key
+
+# Prepare database
+touch database/database.sqlite # Create sqlite database
+php artisan migrate --seed # Create DB Schema and seed sample data
+php artisan passport:install # Install Passport
+
+# Compile assets
+yarn # Install Javascript dependencies
+yarn prod # Compile assets
+
+# Start server
+php artisan serve # Start server
 ```
 
-## Now you have installed application and check the functionalities. ##
+Open http://localhost:8000 to view site
+
+If you don't have installed yarn, run `npm install -g yarn`
+
+
+### Main features ###
+
+* Fully separate Backend and Frontend
+* Authentication based on Laravel Passport
+* List pages with filters and CRUD editing
+* Backend validation
+* Admin panel
+* Simple widgets
+* Simple reports
+* Full Phpunit test coverage
+* Sample E2E tests using Nightwatch and Cypress
+
+
+### Includes ###
+
+* [Laravel Passport](https://laravel.com/docs/5.4/passport) API Authentication
+* [API Docs Gerator](https://github.com/mpociot/laravel-apidoc-generator) Laravel API Documentation Generator
+* [Laravel DebugBar](https://github.com/barryvdh/laravel-debugbar) Debug bar for Laravel
+* [Vue.js](https://vuejs.org/) The Progressive JavaScript Framework
+* [Vuex](https://vuex.vuejs.org/en/intro.html) State management pattern + library for Vue.js
+* [Vue-Router](https://router.vuejs.org/en/) Router library for Vue.js
+
+
+### Other Features ###
+
+* Front page
+* Authentication (registration, login, logout, throttle)
+* Users roles: administrator (all access), manager (manage records)
+* User dashborad with widgets and charts
+* Entries list with filter by date (list, show, edit, delete, create)
+* Report page with chart
+* User profile page
+* Admin dashboard with widgets
+* Users admin (list, show, edit, delete, create)
+* Entries admin (list, show, edit, delete, create)
+* Global loader overlay for all requests
+* Eslint code standard check
+* Lodash-es to allow tree shaking for bundle size optimization
+
+
+### Development ###
+
+To run convenient development server with hot reloading:
+
+```
+php artisan serve # Will serve backend on localhost:8000
+yarn hot # Will serve frontend on loaclhost:8080 and proxy api requests to localhost:8000
+```
+
+And open http://localhost:8080
+
+Alternatively you can use watch method:
+
+```
+yarn watch
+```
+
+And open http://localhost:8000
+
+To compile assets for production run:
+```
+yarn prod
+
+# Or to display bundle analyzer run:
+yarn production -- --env.analyzer true
+```
+
+
+### Tests ###
+
+To run all Phpunit tests:
+
+```
+./vendor/bin/phpunit 
+```
+
+To run Cypress E2E tests:
+
+```
+php artisan serve
+yarn test
+# Or you can open GUI with
+yarn test-gui
+```
+
+To run Nightwatch E2E tests:
+
+```
+php artisan serve
+yarn test-nw
+```
+
+
+### Credentials ###
+
+For testing application the database is seeded with sample users:
+
+* Administrator: email = admin@gmail.com, password = 123456
+* Manager: email = manager@gmail.com, password = 123456
+* User: email = user@gmail.com, password = 123456
+
+
+### TODO ###
+
+- Replace Vue Resource with Axios
+- Add more E2E tests
+
